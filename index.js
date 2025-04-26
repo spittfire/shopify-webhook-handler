@@ -1,60 +1,52 @@
-import express from "express";
-import bodyParser from "body-parser";
-import axios from "axios";
+const express = require('express');
+const axios = require('axios');
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 
-const SHOPIFY_STORE = process.env.SHOPIFY_STORE;
-const SHOPIFY_ACCESS_TOKEN = process.env.SHOPIFY_ACCESS_TOKEN;
+app.get('/', (req, res) => {
+  res.send('Server läuft 🚀');
+});
 
-app.post("/webhook", async (req, res) => {
-  // 🚨 WICHTIG: Shopify erwartet sofort 200 OK!
-  res.status(200).send('OK');
-
-  const order = req.body;
-  const orderId = order.id;
-
-  let customerPhone = "";
-  let serviceDate = "";
-
-  if (order.note_attributes && order.note_attributes.length > 0) {
-    order.note_attributes.forEach(attr => {
-      if (attr.name === "Customer phone" || attr.name === "[Customer phone]") {
-        customerPhone = attr.value;
+app.post('/webhook', async (req, res) => {
+  res.sendStatus(200);
+  try {
+    const order = req.body;
+    let phoneValue = null;
+    let dateValue = null;
+    if (order.note_attributes && Array.isArray(order.note_attributes)) {
+      for (const attr of order.note_attributes) {
+        if (attr.name === 'Customer phone') {
+          phoneValue = attr.value;
+        }
+        if (attr.name === 'Service date') {
+          dateValue = attr.value;
+        }
       }
-      if (attr.name === "Service date" || attr.name === "[Service date]") {
-        serviceDate = attr.value;
-      }
-    });
-  }
-
-  if (customerPhone || serviceDate) {
-    try {
-      await axios({
-        method: "PUT",
-        url: `https://${SHOPIFY_STORE}/admin/api/2023-07/orders/${orderId}.json`,
-        headers: {
-          "X-Shopify-Access-Token": SHOPIFY_ACCESS_TOKEN,
-          "Content-Type": "application/json",
-        },
-        data: {
-          order: {
-            id: orderId,
-            note_attributes: [
-              { name: "Telefonnummer", value: customerPhone },
-              { name: "Mietdatum", value: serviceDate }
-            ],
-          },
-        },
-      });
-      console.log(`Order ${orderId} updated successfully.`);
-    } catch (error) {
-      console.error("Error updating order:", error.response?.data || error.message);
     }
+    const updatedAttributes = [];
+    if (phoneValue !== null) {
+      updatedAttributes.push({ name: 'Customer phone', value: phoneValue });
+    }
+    if (dateValue !== null) {
+      updatedAttributes.push({ name: 'Service date', value: dateValue });
+    }
+    if (order.id && updatedAttributes.length > 0) {
+      const store = process.env.SHOPIFY_STORE;
+      const accessToken = process.env.SHOPIFY_ACCESS_TOKEN;
+      const url = `https://${store}.myshopify.com/admin/api/2023-10/orders/${order.id}.json`;
+      await axios.put(url, { order: { id: order.id, note_attributes: updatedAttributes } }, {
+        headers: {
+          'X-Shopify-Access-Token': accessToken,
+          'Content-Type': 'application/json'
+        }
+      });
+    }
+  } catch (error) {
+    console.error('Failed to process Shopify webhook:', error);
   }
 });
 
 app.listen(3000, () => {
-  console.log("Server läuft auf Port 3000");
+  console.log('Server is running on port 3000');
 });
