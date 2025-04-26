@@ -9,6 +9,9 @@ const SHOPIFY_STORE = process.env.SHOPIFY_STORE;
 const SHOPIFY_ACCESS_TOKEN = process.env.SHOPIFY_ACCESS_TOKEN;
 
 app.post("/webhook", async (req, res) => {
+  // 🚨 WICHTIG: Shopify erwartet sofort 200 OK!
+  res.status(200).send('OK');
+
   const order = req.body;
   const orderId = order.id;
 
@@ -50,8 +53,6 @@ app.post("/webhook", async (req, res) => {
       console.error("Error updating order:", error.response?.data || error.message);
     }
   }
-
-  res.status(200).send("Webhook received");
 });
 
 app.listen(3000, () => {
