@@ -10,6 +10,10 @@ Basis: `DESIGN.md` (Apple). Folgende Tokens überschreiben die Apple-Werte.
 | `primary-text` | `#C24E0F` | Links auf hellen Flächen | 4.8:1 auf Weiß |
 | `primary-on-dark` | `#F4762E` | Links auf dunklen Kacheln | 5.3:1 auf `#272729` |
 
-Orange angelehnt an iPhone 17 Pro „Cosmic Orange“ (kein offizieller Hex-Wert, visuell abgeglichen).
+Akzent-Orange angelehnt an iPhone 17 Pro „Cosmic Orange“ (visuell abgeglichen).
+
+Produktfarben (laut Verpackung): Sunset Orange, Sky Blue, Mist White, Jet Black, Dark Cherry.
+
+Produkt: USB-C Cord A1, Modell APF-CTC001, 100 W PD (20 V / 5 A), 480 Mbit/s, Nylongeflecht, 1 m / 2 m.
 
 Logo: `kabl_final.svg` (main), Wortmarke einfarbig `#020a0a`, auf dunklen Flächen `#ffffff`.
