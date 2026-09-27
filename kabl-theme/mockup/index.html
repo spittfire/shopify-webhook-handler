@@ -154,10 +154,11 @@ footer{background:var(--parchment);color:var(--ink-80);padding:clamp(40px,5vw,64
 .panel-word span{color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.55)}
 .panel-word span:nth-child(2){color:#fff;-webkit-text-stroke:0}
 .panel.is-active .panel-word{opacity:1;transition:opacity .5s ease .3s}
-.panel-img{z-index:1;position:absolute;left:50%;top:50%;width:86%;height:40%;object-fit:contain;transform:translate(-50%,-50%);transition:width .7s var(--ease),height .7s var(--ease),top .7s var(--ease)}
-.panel-img[data-tall]{height:56%;-webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent 98%);mask-image:linear-gradient(to bottom,#000 72%,transparent 98%)}
-.panel.is-active .panel-img{width:90%;height:58%;top:38%}
-.panel.is-active .panel-img[data-tall]{height:74%;top:38%}
+.panel-img{z-index:1;position:absolute;left:50%;top:50%;width:86%;height:40%;object-fit:contain;transform:translate(-50%,-50%) scale(1);transition:width .7s var(--ease),height .7s var(--ease),top .7s var(--ease),opacity .45s ease,transform .7s var(--ease)}
+.img-stand{height:74%;top:38%;width:90%;opacity:0;transform:translate(-50%,-44%) scale(.9);-webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent 98%);mask-image:linear-gradient(to bottom,#000 72%,transparent 98%)}
+.panel.is-active .img-round{width:90%;height:58%;top:38%}
+.panel.is-active:has(.img-stand) .img-round{opacity:0;transform:translate(-50%,-50%) scale(.85) rotate(-8deg)}
+.panel.is-active .img-stand{opacity:1;transform:translate(-50%,-50%) scale(1);transition-delay:.12s}
 .panel-info{z-index:3;position:absolute;left:0;right:0;bottom:clamp(24px,6%,44px);display:grid;gap:10px;justify-items:center;text-align:center;padding-inline:clamp(20px,4vw,48px);opacity:0;transition:opacity .25s;pointer-events:none}
 .panel.is-active .panel-info{opacity:1;transition:opacity .5s ease .35s;pointer-events:auto}
 .panel-price{font-size:clamp(21px,2.2vw,28px);font-weight:700;letter-spacing:.2px;font-variant-numeric:tabular-nums}
@@ -168,8 +169,9 @@ footer{background:var(--parchment);color:var(--ink-80);padding:clamp(40px,5vw,64
   .panels{flex-direction:column;height:auto;border-radius:20px}
   .panel{flex:none;height:96px;transition:height .6s var(--ease)}
   .panel.is-active{height:540px}
-  .panel-img{width:auto;height:80px}
-  .panel.is-active .panel-img{height:auto;width:min(72%,300px);top:38%}
+  .img-round{width:auto;height:80px}
+  .panel.is-active .img-round{height:auto;width:min(72%,300px);top:38%}
+  .img-stand{height:78%}
   .panel-word{font-size:clamp(80px,25vw,120px);top:34%}
 }
 @media (prefers-reduced-motion:reduce){.panel,.panel *,.panel::before{transition:none!important}}
@@ -222,7 +224,8 @@ footer{background:var(--parchment);color:var(--ink-80);padding:clamp(40px,5vw,64
     <div class="panels" id="panels">
       <article class="panel is-active" style="--bg:#E39A72" tabindex="0" aria-label="kabl. A1 Cosmic Orange" aria-expanded="true">
         <div class="panel-word" aria-hidden="true"><span>kabl.</span><span>kabl.</span><span>kabl.</span></div>
-        <img class="panel-img" src="img/kabl-a1-cosmic-orange-03_stecker-front_cut.webp" data-tall="1" alt="kabl. A1 Cosmic Orange">
+        <img class="panel-img img-round" src="img/kabl-a1-cosmic-orange-01_cutout.webp" alt="kabl. A1 Cosmic Orange, aufgerollt">
+        <img class="panel-img img-stand" src="img/kabl-a1-cosmic-orange-03_stecker-front_cut.webp" alt="" aria-hidden="true">
         <div class="panel-info">
           <p class="panel-price">24,90 €</p>
           <p class="panel-text">kabl. A1 in Cosmic Orange. Geflochtenes Nylon, 240 W, abgestimmt auf das iPhone 17 Pro.</p>
@@ -231,7 +234,7 @@ footer{background:var(--parchment);color:var(--ink-80);padding:clamp(40px,5vw,64
       </article>
       <article class="panel" style="--bg:#8EA7C8" tabindex="0" aria-label="kabl. A1 Glacier Blue" aria-expanded="false">
         <div class="panel-word" aria-hidden="true"><span>kabl.</span><span>kabl.</span><span>kabl.</span></div>
-        <img class="panel-img" src="img/kabl-a1-glacier-blue-01_cutout.webp" alt="kabl. A1 Glacier Blue" loading="lazy">
+        <img class="panel-img img-round" src="img/kabl-a1-glacier-blue-01_cutout.webp" alt="kabl. A1 Glacier Blue, aufgerollt">
         <div class="panel-info">
           <p class="panel-price">24,90 €</p>
           <p class="panel-text">kabl. A1 in Glacier Blue. Kühles Blau, geflochtenes Nylon, zwei Stecker mit Logo-Prägung.</p>
@@ -240,7 +243,7 @@ footer{background:var(--parchment);color:var(--ink-80);padding:clamp(40px,5vw,64
       </article>
       <article class="panel" style="--bg:#B7BCC1" tabindex="0" aria-label="kabl. A1 Silver" aria-expanded="false">
         <div class="panel-word" aria-hidden="true"><span>kabl.</span><span>kabl.</span><span>kabl.</span></div>
-        <img class="panel-img" src="img/kabl-a1-silver-01_cutout.webp" alt="kabl. A1 Silver" loading="lazy">
+        <img class="panel-img img-round" src="img/kabl-a1-silver-01_cutout.webp" alt="kabl. A1 Silver, aufgerollt">
         <div class="panel-info">
           <p class="panel-price">24,90 €</p>
           <p class="panel-text">kabl. A1 in Silver. Hell und neutral, passt zu MacBook, iPad und jedem Schreibtisch.</p>
@@ -249,7 +252,7 @@ footer{background:var(--parchment);color:var(--ink-80);padding:clamp(40px,5vw,64
       </article>
       <article class="panel" style="--bg:#8B8D93" tabindex="0" aria-label="kabl. A1 Jet Black" aria-expanded="false">
         <div class="panel-word" aria-hidden="true"><span>kabl.</span><span>kabl.</span><span>kabl.</span></div>
-        <img class="panel-img" src="img/kabl-a1-jet-black-01_cutout.webp" alt="kabl. A1 Jet Black" loading="lazy">
+        <img class="panel-img img-round" src="img/kabl-a1-jet-black-01_cutout.webp" alt="kabl. A1 Jet Black, aufgerollt">
         <div class="panel-info">
           <p class="panel-price">24,90 €</p>
           <p class="panel-text">kabl. A1 in Jet Black. Matt und unauffällig, für Setups ohne Ablenkung.</p>
@@ -258,7 +261,8 @@ footer{background:var(--parchment);color:var(--ink-80);padding:clamp(40px,5vw,64
       </article>
       <article class="panel" style="--bg:#B58793" tabindex="0" aria-label="kabl. A1 Burgundy" aria-expanded="false">
         <div class="panel-word" aria-hidden="true"><span>kabl.</span><span>kabl.</span><span>kabl.</span></div>
-        <img class="panel-img" src="img/kabl-a1-burgundy-03_stecker-front_cut.webp" data-tall="1" alt="kabl. A1 Burgundy" loading="lazy">
+        <img class="panel-img img-round" src="img/kabl-a1-burgundy-01_cutout.webp" alt="kabl. A1 Burgundy, aufgerollt">
+        <img class="panel-img img-stand" src="img/kabl-a1-burgundy-03_stecker-front_cut.webp" alt="" aria-hidden="true">
         <div class="panel-info">
           <p class="panel-price">24,90 €</p>
           <p class="panel-text">kabl. A1 in Burgundy. Tiefes Rot mit Wärme, geflochtenes Nylon, 240 W.</p>
