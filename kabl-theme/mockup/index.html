@@ -88,13 +88,30 @@ p{margin:0}
 .bleed-copy{position:absolute;inset:0;display:grid;align-content:center;justify-items:start;text-align:left;gap:12px;padding-inline:clamp(24px,7vw,120px);max-width:620px}
 .bleed-copy .ctas{justify-content:flex-start}
 
+/* Split */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 12px 0;background:var(--canvas)}
+.split-tile{position:relative;overflow:hidden;border-radius:18px;aspect-ratio:5/4;text-align:left}
+.split-tile .ctas{justify-content:flex-start}
+.split-tile.dark{background:#1d1d1f;color:#fff}
+.split-tile.light{background:#e8e8ea;color:var(--ink)}
+.split-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:85% center}
+.split-copy{position:absolute;left:0;bottom:0;display:grid;gap:10px;justify-items:start;text-align:left;padding:clamp(28px,4vw,48px);max-width:60%}
+.split-title{font-size:clamp(28px,3vw,40px);line-height:1.1;letter-spacing:-0.02em;max-width:16ch;margin-bottom:6px}
+.split-tile.dark .eyebrow,.split-tile.dark .link{color:var(--primary)}
+@media (max-width:749px){.split{grid-template-columns:1fr}.split-tile{aspect-ratio:4/5}}
 /* Two-up */
-.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;background:var(--canvas)}
+.duo{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:12px;background:var(--canvas)}
 .duo-card{position:relative;overflow:hidden;border-radius:18px;background:var(--parchment);aspect-ratio:4/5;color:var(--on-dark)}
 .duo-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.duo-copy{position:relative;padding:clamp(28px,4vw,48px) clamp(20px,3vw,40px);display:grid;gap:8px;text-align:center;justify-items:center}
-.duo-copy h3{font-size:clamp(28px,3vw,40px);line-height:1.1}
+.duo-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:55%;background:linear-gradient(to top,rgba(0,0,0,.45),transparent);pointer-events:none}
+.duo-card.is-light::after{background:linear-gradient(to top,rgba(255,255,255,.7),transparent)}
+.duo-copy{position:absolute;z-index:1;left:0;right:0;bottom:0;padding:clamp(28px,4vw,44px) clamp(20px,3vw,36px);display:grid;gap:8px;text-align:center;justify-items:center}
+.duo-copy .ctas{margin-top:10px}
+.duo-copy h3{font-size:clamp(24px,2.4vw,34px);line-height:1.1}
 .duo-copy p{font-size:17px;max-width:30ch;color:rgba(255,255,255,.92)}
+.duo-card.is-light{color:var(--ink)}
+.duo-card.is-light .duo-copy p{color:var(--ink-80)}
+.duo-card:not(.is-light) .link{color:#fff}
 
 /* Specs */
 .specs{background:var(--canvas);padding:clamp(56px,8vw,96px) var(--gutter)}
@@ -309,28 +326,48 @@ footer{background:var(--parchment);color:var(--ink-80);padding:clamp(40px,5vw,64
     </div>
   </section>
 
-  <section class="tile bleed dark" aria-labelledby="black-t">
-    <img src="img/kabl-a1-jet-black-07_hero-stecker-16x9.webp" alt="USB-C-Stecker des kabl. A1 in Jet Black vor dunklem Hintergrund" loading="lazy">
-    <div class="bleed-copy">
-      <p class="eyebrow">Jet Black</p>
-      <h2 id="black-t" class="tile-title">Unauffällig. Bis man es anfasst.</h2>
-      <div class="ctas"><a class="btn btn-primary" href="#shop">Kaufen</a><a class="link" href="#specs">Technik ansehen</a></div>
-    </div>
+  <section class="split" aria-label="Farben im Detail">
+    <article class="split-tile dark">
+      <img src="img/kabl-home-jet-black.webp" alt="USB-C-Stecker des Kabl. A1 in Jet Black" loading="lazy">
+      <div class="split-copy">
+        <p class="eyebrow">Jet Black</p>
+        <h2 class="split-title">Unauffällig. Bis man es anfasst.</h2>
+        <div class="ctas"><a class="btn btn-primary" href="#shop">Kaufen</a><a class="link" href="#specs">Mehr erfahren</a></div>
+      </div>
+    </article>
+    <article class="split-tile light">
+      <img src="img/kabl-home-mist-white.webp" alt="USB-C-Stecker des Kabl. A1 in Mist White" loading="lazy">
+      <div class="split-copy">
+        <p class="eyebrow">Mist White</p>
+        <h2 class="split-title">Hell. Klar. Zu allem passend.</h2>
+        <div class="ctas"><a class="btn btn-primary" href="#shop">Kaufen</a><a class="link" href="#specs">Mehr erfahren</a></div>
+      </div>
+    </article>
   </section>
 
   <section class="duo" aria-label="Details">
     <article class="duo-card">
-      <img src="img/kabl-a1-cosmic-orange-05_detail-geflecht.webp" alt="Nahaufnahme des Nylon-Geflechts in Sunset Orange" loading="lazy">
+      <img src="img/kabl-a1-cosmic-orange-05_detail-geflecht.webp" alt="Nahaufnahme des Nylongeflechts in Sunset Orange" loading="lazy">
       <div class="duo-copy">
         <h3>Geflochten, nicht gummiert.</h3>
-        <p>Doppelt gewebtes Nylon, das nicht knickt und nicht klebt.</p>
+        <p>Hochwertiges Nylongeflecht, das nicht knickt und nicht klebt.</p>
+        <div class="ctas"><a class="btn btn-primary" href="#shop">Kaufen</a><a class="link" href="#specs">Mehr erfahren</a></div>
       </div>
     </article>
     <article class="duo-card">
-      <img src="img/kabl-a1-cosmic-orange-06_detail-stecker.webp" alt="Stecker mit eingeprägtem kabl.-Logo" loading="lazy">
+      <img src="img/kabl-home-zugentlastung.webp" alt="Stecker mit verstärkter Zugentlastung in Dark Cherry" loading="lazy">
       <div class="duo-copy">
-        <h3>Das Logo sitzt im Stecker.</h3>
-        <p>Eingeprägt statt aufgedruckt. Hält so lange wie das Kabel.</p>
+        <h3>Verstärkte Zugentlastung.</h3>
+        <p>Genau da, wo Kabel sonst zuerst brechen.</p>
+        <div class="ctas"><a class="btn btn-primary" href="#shop">Kaufen</a><a class="link" href="#specs">Mehr erfahren</a></div>
+      </div>
+    </article>
+    <article class="duo-card is-light">
+      <img src="img/kabl-home-laenge.webp" alt="Kabl. A1 in Sunset Orange am Laptop auf dem Schreibtisch" loading="lazy" style="object-position:60% center">
+      <div class="duo-copy">
+        <h3>1 m oder 2 m.</h3>
+        <p>1 m für Schreibtisch und Tasche. 2 m für Sofa und Bett.</p>
+        <div class="ctas"><a class="btn btn-primary" href="#shop">Kaufen</a><a class="link" href="#specs">Mehr erfahren</a></div>
       </div>
     </article>
   </section>
